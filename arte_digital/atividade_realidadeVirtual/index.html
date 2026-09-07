@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <script src="/script.js" defer></script>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <title>2° Aula de Realidade Virtual</title>
+</head>
+  
+  <body>
+    
+    <a-scene stats="false" vr-mode-ui="false">
+      
+      <a-assets>
+        <img id="logo1" src="IMG/logoTransparente.png";>
+        <img id="sky1" src="IMG/sky.jpg">
+        <img id="map" src="IMG/map.jpg">
+        <img id="mundi" src="IMG/mundi.jpg" >
+        <img id="uni" src="IMG/galaxy.jpg">
+        <img id="earth" src="IMG/earth.jpg">
+        <img id="sun" src="IMG/solar.jpg">
+      </a-assets>
+      
+      <!-- <a-image src="#logo1" position="0 1.6 -4" rotation="-4 45 0" width="3" height="1.5"></a-image> -->
+
+      <a-sphere src="#earth" color="" radius="1" position="0 1.6 -3"></a-sphere>
+      <a-sphere src="#sun" color="" radius="0.5" position="4 1.6 -4"></a-sphere>
+
+      <a-sky color="/#87CEEB" src="#uni"></a-sky>
+      
+      <a-camera position="0 1.6 0">
+        <a-cursor></a-cursor>
+      </a-camera>
+
+    </a-scene>
+
+  </body>
+</html>
+
