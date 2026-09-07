@@ -1,0 +1,90 @@
+<!-- Página de Detalhes do Produto (product-detail.html) -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>Detalhes do Produto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <style>
+        body {
+            font-family: verdana;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .product-detail {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-detail h2 {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .product-detail p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="productDetail" class="product-detail">
+        <!-- Detalhes do produto serão exibidos aqui -->
+        <h2>Detalhes do Produto</h2>
+        <p><strong>ID:</strong> <span id="productId"></span></p>
+        <p><strong>Descrição:</strong> <span id="productDesc"></span></p>
+        <p><strong>Preço:</strong> R$ <span id="productPrice"></span></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id');
+
+            if (productId) {
+                // Configuração do Firebase
+                const firebaseConfig = {
+                    apiKey: "",
+                    authDomain: "",
+                    databaseURL: "",
+                    projectId: "",
+                    storageBucket: "",
+                    messagingSenderId: "",
+                    appId: "", 
+                    measurementId: "G-VW0HG744ZV"
+                };
+
+                firebase.initializeApp(firebaseConfig);
+                const db = firebase.database().ref("produtos/" + productId);
+
+                db.once("value", (snapshot) => {
+                    if (snapshot.exists()) {
+                        let product = snapshot.val();
+                        document.getElementById("productId").textContent = productId;
+                        document.getElementById("productDesc").textContent = product.descricao;
+                        document.getElementById("productPrice").textContent = product.preco.toFixed(2);
+                    } else {
+                        document.getElementById("productDetail").innerHTML = "Produto não encontrado!";
+                    }
+                });
+            } else {
+                document.getElementById("productDetail").innerHTML = "ID de produto não fornecido!";
+            }
+        });
+    </script>
+</body>
+</html>

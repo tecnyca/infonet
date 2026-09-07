@@ -1,0 +1,359 @@
+<!--Página principal (catálogo de produtos)-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<title>Home</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Nicholly Gonzaga">
+
+	<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+	<!-- Importando a fonte "Orbitron" do Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="CSS/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+	<!-- Cabeçalho -->
+	<header>
+		<img src="https://res.cloudinary.com/dsf2txoqr/image/upload/v1747959665/svim96ficucptxatnuum.png" width="150px" alt="Logo Zumbits">
+		<h1><b> Zumbits </b></h1><br>
+	</header>
+
+	<!-- Menu -->
+	<div class="navbar">
+		<a href="#home">Home</a>
+		<div class="dropdown">
+			<button class="dropbtn">
+				Produtos
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">
+				<a href="#">Colecionáveis</a>
+				<a href="#">Eletrônicos</a>
+				<a href="#">HQs</a>
+				<a href="#">Jogos</a>
+				<a href="#">Pôsters</a>
+			</div>
+		</div>
+		<a href="#">Sobre</a>
+		<a href="#">Contato</a>
+	</div>
+
+	<!-- Conteúdo do Catálogo -->
+	<section id="catalogSection">
+		<div id="productList" class="catalog"></div>
+		<br>
+	</section>
+
+	<!-- Detalhamento do Produto (inicialmente oculto) -->
+	<section id="productDetailSection" style="display: none;">
+		<button class="back-button" onclick="goBack()">&#8592; Voltar</button>
+		<div class="product-detail" id="productDetail">
+			<p>Carregando detalhes...</p>
+		</div>
+	</section>
+
+	<!-- Pop-up de Confirmação de Compra -->
+	<div id="popup" class="popup" style="display: none;">
+		<div class="popup-conteudo">
+			<span class="fechar" id="fechar" onclick="fecharPopup()">&times;</span>
+			<h2>Confirmação de Compra</h2>
+			<p id="popupTexto">Você deseja realmente comprar este item?</p>
+
+			<label for="quantidadeCompra">Quantidade:</label>
+			<input type="number" id="quantidadeCompra" name="quantidadeCompra" min="1" value="1" />
+			<br>
+			<label for="nome">Nome:</label>
+			<input type="text" id="nome" name="nome" required />
+			<br>
+			<label for="email">E-mail:</label>
+			<input type="email" id="email" name="email" required placeholder="exemplo@email.com" />
+			<br>
+			<label for="cep">CEP:</label>
+			<input type="text" id="cep" name="cep" pattern="\d{5}-?\d{3}" required placeholder="00000-000" />
+			<br><br>
+			<button onclick="confirmarPopup()">Confirmar</button>
+		</div>
+	</div>
+
+	<!-- Rodapé -->
+	<footer>
+		<p>2025 | Feito por Nicholly Gonzaga dos Santos</p>
+	</footer>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			console.log("Página carregada, iniciando Firebase...");
+
+			// Configuração do Firebase
+			const firebaseConfig = {
+				apiKey: "AIzaSyCjjy2B9jb2XZW4nIfMj1xDLogZc8oBd9M",
+				authDomain: "estoque-naturale.firebaseapp.com",
+				databaseURL: "https://estoque-naturale-default-rtdb.firebaseio.com",
+				projectId: "estoque-naturale",
+				storageBucket: "estoque-naturale.firebasestorage.app",
+				messagingSenderId: "204707025194",
+				appId: "1:204707025194:web:158dd6235e0996b6e54e53",
+				measurementId: "G-ZJMVMSTSBJ"
+			};
+
+			// Inicializa o Firebase
+			firebase.initializeApp(firebaseConfig);
+
+			// Referência ao nó 'produtos'
+			const db = firebase.database().ref("produtos");
+
+			// Executa mudanças em 'produtos'
+			db.on("value", (snapshot) => {
+				console.log("Firebase snapshot bruto:", snapshot.val());
+
+				const list = document.getElementById("productList");
+				list.innerHTML = ""; // limpa os cards antes de renderizar novamente
+
+				const dados = snapshot.val();
+				console.log("Dados recebidos do Firebase:", dados);
+
+				if (!dados) {
+					list.innerHTML = "<p>Nenhum produto cadastrado.</p>";
+					return;
+				}
+
+				Object.entries(dados).forEach(([id, produto]) => {
+					const {
+						descricao,
+						precoVenda,
+						precoCusto,
+						categoria,
+						marca,
+						estoque,
+						status,
+						caracteristicas,
+						fornecedor,
+						dataCompra
+					} = produto;
+
+					const card = document.createElement("div");
+					card.classList.add("product-card");
+
+					const isEsgotado = estoque <= 0;
+
+					card.classList.toggle("esgotado", isEsgotado);
+
+					card.innerHTML = `
+						<a href="javascript:void(0);" onclick="loadProductDetail('${id}')">
+								<img src="${produto.imagem}" alt="${descricao}" class="product-image">
+								<h4>${descricao}</h4>
+								<p class="price">R$ ${precoVenda?.toFixed(2) ?? "0.00"}</p>
+								<p class="brand">${marca}</p>
+						</a>
+						${isEsgotado
+							? `<button class="botao-esgotado" onclick="avisarDisponibilidade('${id}', '${descricao}')">Avise-me quando disponível</button>`
+							: `<button class="botao-comprar" onclick="abrirPopup('${id}', '${descricao}', '${precoVenda?.toFixed(2)}', ${estoque ?? 0})">Comprar</button>`
+						}
+				`;
+
+
+
+					list.appendChild(card);
+					console.log("Imagem URL do produto:", produto.imagem);
+				});
+			});
+		});
+
+		// Função para carregar os detalhes do produto
+		function loadProductDetail(productId) {
+			const catalogSection = document.getElementById("catalogSection");
+			const productDetailSection = document.getElementById("productDetailSection");
+			const productDetailDiv = document.getElementById("productDetail");
+
+			catalogSection.style.display = "none";
+			productDetailSection.style.display = "block";
+
+			// Busca os dados do produto no Firebase
+			firebase.database().ref(`produtos/${productId}`).get().then(snapshot => {
+				const produto = snapshot.val();
+
+				if (!produto) {
+					productDetailDiv.innerHTML = "<p>Produto não encontrado.</p>";
+					return;
+				}
+
+				const {
+					descricao,
+					precoVenda,
+					marca,
+					estoque,
+					status,
+					caracteristicas,
+					imagem
+				} = produto;
+
+				productDetailDiv.innerHTML = `
+					<div class="product-detail-container">
+						<h2 class="product-title">${descricao}</h2>
+						<div class="detail-content">
+							<img src="${imagem}" alt="${descricao}" class="product-detail-image">
+							<div class="product-info">
+								<div class="info-item"><i class="fas fa-tag"></i> <strong>Marca:</strong> ${marca}</div>
+								<div class="info-item"><i class="fas fa-dollar-sign"></i> <strong>Preço de Venda:</strong> R$ ${precoVenda?.toFixed(2) ?? "0.00"}</div>
+								<div class="info-item"><i class="fas fa-cogs"></i> <strong>Estoque:</strong> ${estoque ?? "-"}</div>
+								<div class="info-item">
+									<i class="fas fa-check-circle"></i> <strong>Status:</strong> 
+									<span class="status ${status === 'em estoque' ? 'in-stock' : 'out-of-stock'}">${status}</span>
+								</div>
+								<div class="info-item"><i class="fas fa-info-circle"></i> <strong>Características:</strong> ${caracteristicas}</div>
+							</div>
+						</div>
+					</div>
+				`;
+
+			});
+		}
+
+		function goBack() {
+			document.getElementById("productDetailSection").style.display = "none";
+			document.getElementById("catalogSection").style.display = "block";
+		}
+
+		// Pop-up de Compra
+		function abrirPopup(productId, descricao, preco, estoque) {
+			const popup = document.getElementById("popup");
+			const texto = document.getElementById("popupTexto");
+			const inputQtd = document.getElementById("quantidadeCompra");
+
+			texto.innerText = `Você deseja comprar "${descricao}" por R$ ${preco}?`;
+			inputQtd.max = estoque;
+			inputQtd.value = 1;
+			inputQtd.min = 1;
+
+			popup.dataset.productId = productId;
+			popup.dataset.estoque = estoque;
+
+			if (estoque === 0) {
+				inputQtd.disabled = true;
+				texto.innerText = `Produto "${descricao}" está esgotado.`;
+			} else {
+				inputQtd.disabled = false;
+			}
+
+			popup.style.display = "block";
+		}
+
+		// Guardar valores para confirmar compra
+		popup.dataset.descricao = descricao;
+		popup.dataset.preco = preco;
+		popup.dataset.estoque = estoque;
+
+		function confirmarPopup() {
+			const popup = document.getElementById("popup");
+			const productId = popup.dataset.productId;
+			const estoque = parseInt(popup.dataset.estoque, 10);
+			const qtd = parseInt(document.getElementById("quantidadeCompra").value, 10);
+			const nome = document.getElementById("nome").value.trim();
+			const email = document.getElementById("email").value.trim();
+			const cep = document.getElementById("cep").value.trim();
+
+			if (!nome || !email || !cep) {
+				alert("Por favor, preencha todos os campos.");
+				return;
+			}
+
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				alert("E-mail inválido.");
+				return;
+			}
+
+			const cepRegex = /^\d{5}-?\d{3}$/;
+			if (!cepRegex.test(cep)) {
+				alert("CEP inválido. Formato esperado: 00000-000.");
+				return;
+			}
+
+			if (qtd > estoque) {
+				alert(`Quantidade excede o estoque disponível (${estoque}).`);
+				return;
+			}
+
+			const produtoRef = firebase.database().ref(`produtos/${productId}`);
+
+			produtoRef.transaction((produtoAtual) => {
+				if (produtoAtual && produtoAtual.estoque >= qtd) {
+					produtoAtual.estoque -= qtd;
+					return produtoAtual;
+				} else {
+					alert("Estoque insuficiente ou produto não encontrado.");
+					return;
+				}
+			}).then(result => {
+				if (result.committed) {
+					// Salva dados da compra
+					const compra = {
+						produtoId: productId,
+						nome,
+						email,
+						cep,
+						quantidade: qtd,
+						data: new Date().toISOString()
+					};
+
+					firebase.database().ref("compras").push(compra);
+
+					alert(`Compra confirmada! Você comprou ${qtd} unidade(s).`);
+					fecharPopup();
+				} else {
+					alert("A compra foi cancelada.");
+				}
+			}).catch(err => {
+				console.error("Erro ao processar a compra:", err);
+				alert("Erro ao processar a compra.");
+			});
+		}
+
+		function fecharPopup() {
+			document.getElementById("popup").style.display = "none";
+			document.getElementById("nome").value = "";
+			document.getElementById("email").value = "";
+			document.getElementById("cep").value = "";
+			document.getElementById("quantidadeCompra").value = 1;
+		}
+
+		function avisarDisponibilidade(productId, descricao) {
+			const email = prompt(`Informe seu e-mail para ser avisado quando "${descricao}" voltar ao estoque:`);
+
+			if (!email) return;
+
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				alert("E-mail inválido.");
+				return;
+			}
+
+			const pedidoAviso = {
+				produtoId: productId,
+				email: email,
+				dataSolicitacao: new Date().toISOString()
+			};
+
+			firebase.database().ref("avisosDisponibilidade").push(pedidoAviso);
+
+			alert(`Obrigado! Você será avisado quando "${descricao}" estiver disponível.`);
+		}
+
+
+	</script>
+</body>
+
+</html>
