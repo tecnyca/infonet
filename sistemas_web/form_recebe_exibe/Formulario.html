@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Utilização de formulários</title>
+</head>
+
+<body>
+   <form action="RecebeDados.php" 
+         method="post">
+     <fieldset>
+       <legend>Dados pessoais</legend>
+
+       <label title="Informação QUALQUER" 
+              for="n1">Nome</label>
+
+       <input id = "n1" name = "informacao1"
+              type = "text" size="60"
+	          maxlength="35" 
+	          placeholder="Digite o nome aqui" 
+              required = "required" 
+	   />
+
+       <br /> <br/> 
+
+       <fieldset>
+          <legend>Informações de login</legend>
+
+          <label for="email">Email</label> 
+          <input id = "email" type = "email" 
+		         name = "informacao2"
+                 placeholder="Digite email aqui" 
+                 size="35" maxlength="35" 
+	             required="required"/>
+
+          <label for="senha">Senha</label> 
+          <input type = "password" 
+                 name = "informacao3" 
+	             id = "senha"
+	             placeholder="Qual a senha?"
+	             size="17" maxlength="12" 
+	             required="required" />
+       </fieldset>
+       <br /> <br />
+
+       <label for="site">Qual o seu site?</label> 
+       <input type = "url" name = "infosite" 
+	          id = "site"
+	          placeholder="Endereço completo do site"
+	          size="45" maxlength="40" 
+	          required="required" />	  
+
+        <label for="numero">Digite nº</label> 
+        <input type = "number" 
+               name = "infonumero" 
+	           id = "numero" min="05" max="186"
+	           required="required" />	  
+
+     </fieldset>
+     
+	 <br /><br />
+
+	 <label for="nivel">Nível de conhecimento</label>
+     <input type="radio" id="nivel" 
+            name="opcao1" value="bas" />Básico
+
+     <input type="radio" id="nivel" 
+            name="opcao1" value="int"/>Intermediário
+
+     <input type="radio" id="nivel" 
+            name="opcao1" value="ava"/>Avançado
+	        
+	 <input type="radio"id="nivel" 
+            name="opcao1" value="mas"/>Master
+     
+	 <br /> <br />
+     
+     <input type="checkbox" id="id_aceite" 
+            name="aceite" value="Sim"  /> 
+     <label for="id_aceite">Aceito receber informações periódicas</label>
+
+<br /> 
+ 
+     <input type="checkbox" id="participacao" 
+            name="participacao" value="1"
+            checked="checked" /> 
+     <label for="participacao">Quero participar das aulas</label>
+
+	 <br /> <br />
+
+     <label for="opiniao">O que você mais gostou no evento ?</label>
+     <br />	 
+     <textarea cols="75" id="opiniao" 
+               rows="8" name="campo10" 
+		       maxlength="250"  wrap="ON" 
+               placeholder="teste de textarea"
+		       required = "required"></textarea>
+
+     <br /> <br />
+
+     <label for="escolha">Escolha um instrumento</label>
+     <select id="escolha" name="escolha">
+        <option value="errado">Selecione...</option> 
+        <optgroup label="Cordas">
+          <option value="opcao1">Violino</option>
+          <option value="OPcao2">Viola</option>
+          <option value="opcao3">Violoncelo</option>
+        </optgroup> 
+        <optgroup label="Sopros">
+          <option value="opcao4">Flauta</option>
+		  <option value="opcao5">Oboé</option>
+          <option value="opcao6">Clarinete</option>
+        </optgroup>
+     </select>
+
+     <br /> <br />
+
+     <label for="id_escolha2">Escolha um instrumento</label>
+     <select id="id_escolha2" multiple 
+	         name="escolha2[]">
+        <option value="errado">Selecione...</option> 
+        <optgroup label="Cordas">
+          <option value="opcao1">Violino</option>
+          <option value="OPcao2">Viola</option>
+          <option value="opcao3">Violoncelo</option>
+        </optgroup> 
+        <optgroup label="Sopros">
+          <option value="opcao4">Flauta</option>
+		  <option value="opcao5">Oboé</option>
+          <option value="opcao6">Clarinete</option>
+        </optgroup>
+     </select>
+
+     <br /> <br />
+
+     <input type = "submit" 
+            name = "btn1" value="ENVIAR" />
+
+     <input type = "reset" 
+            name = "btn2" value="Apagar" />
+   </form>
+
+</body>
+
+</html>
+ 
