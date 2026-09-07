@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Forms</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        form{
+            padding: 0 35%;
+        }
+        fieldset{
+            text-align: left;
+            padding: 5% 10%;
+        }
+        input{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1><strong>Atividade Prática</strong></h1>
+    
+    <form action="receptor.php" method="post">
+        <fieldset>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="info1"/>
+            <br><br>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="info2" required/>
+            <br><br>
+
+            <label for="nascimento">Data de nascimento:</label>
+            <input type="date" id="nascimento" name="info3" required/>
+            <br><br>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="info4" required/>
+            <br><br>
+
+            <hr>
+
+            <label for="user">Tipo de Usuário:</label><br>
+            <input type="radio" id="user" name="info5" value="Cliente"/> Cliente
+            <input type="radio" id="user" name="info5" value="Vendedor"/> Vendedor
+            <input type="radio" id="user" name="info5" value="Administrador"/> Administrador
+            <br><br>
+
+            <label for="login1">Login:</label>
+            <input type="text" id="login1" name="info6"/>
+            <br><br>
+
+            <label for="senha1">Senha:</label>
+            <input type="password" id="senha1" name="info7"/>
+            <br><br>
+
+            <label for="senha2">Confirmação de senha:</label>
+            <input type="password" id="senha2" name="info8"/>
+            <br><br><br>
+
+            <input type="submit" name="btn1" value="Avançar" style="background-color: yellow;"/>
+        </fieldset>
+    </form>
+</body>
+</html>
