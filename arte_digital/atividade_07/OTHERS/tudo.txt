@@ -1,0 +1,18 @@
+Prompts pra criação da logo na IA:
+    #1 Parque de dinossauros com uma pegada mais fofa e atrativa
+    #2 Uma escola de balé com uma vibe mais rockeira e masculina
+    #3 Logo para uma loja de artigos escolares na vibe dark academia
+    #4 No papel de um designer, imagine uma logo para uma marca chamada 'Icon' com um tema estrelado e que remeta à galáxia
+    #5 No papel de um designer, imagine uma logo para uma marca pessoal com o nome 'Olly'. A logo precisa remeter ao que a pessoa gosta, que são livros e tecnologia. E a fonte do nome da marca pode ser algo mais intelectual com uma pegada vintage.
+    #6 No papel de um designer, imagine uma logo para uma marca pessoal com o nome 'Olly'. A logo precisa remeter ao que a pessoa gosta, que são livros e tecnologia. E a fonte do nome da marca pode ser algo mais intelectual com uma pegada vintage. Use elementos simples, mas marcantes e não exagere na quantidade de elementos presentes. 
+    #7 No papel de um designer, imagine uma logo para uma marca pessoal com o nome 'Olly'. Adicione elementos que remetam ao mundo geek. As cores e detalhes podem trazer referências dos anos 2000, com cores e tons vivos e alegres. 
+
+
+Cores do logo:
+    #A61449
+    #F23078
+    #0BC4D9
+    #F2A922
+    #F24130
+    #F6EDDE
+    #0F3B6A
