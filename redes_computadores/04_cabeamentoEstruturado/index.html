@@ -1,0 +1,206 @@
+<!--Página inicial -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		main{
+			flex: 1;
+		}
+
+		body{
+			margin: 0;
+			font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(145deg, #f9f9f9, #e0f0ff);
+			color: #222;
+			transition: background 0.5s, color 0.5s;
+		}
+
+		header {
+			background-color: #005a9e;
+			color: white;
+			text-align: center;
+			padding: 1em;
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+		}
+
+		header h1{
+			margin: 0;
+			font-size: 2em;
+			letter-spacing: 1px;
+		}
+
+		button{
+			cursor: pointer;
+			padding: 15px 32px;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+		}
+
+		section{
+			width: 100vw;
+			height: 100vw;
+			overflow-y: auto;
+		}
+
+		.accordion {
+			max-width: 800px;
+			margin: 2em auto;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+			background-color: white;
+			overflow: hidden;
+		}
+
+		.accordion-item {
+			border-top: 1px solid #ddd;
+			transition: background 0.3s;
+		}
+
+		.accordion-header {
+			padding: 1em;
+			background: #f0f0f0;
+			cursor: pointer;
+			font-weight: bold;
+			position: relative;
+			transition: background 0.3s;
+		}
+		
+		.accordion-header::after {
+			content: "\f107";
+			font-family: 'Font Awesome 6 Free';
+			font-weight: 900;
+			position: absolute;
+			right: 20px;
+			transition: transform 0.3s ease;
+		}
+
+		.accordion-item.open .accordion-header::after {
+			transform: rotate(180deg);
+		}
+	
+		.accordion-content {
+			max-height: 0;
+			overflow: hidden;
+			background-color: #fafafa;
+			transition: max-height 0.4s ease, padding 0.3s ease;
+			padding: 0 1em;
+		}
+
+		.accordion-item.open .accordion-content {
+			max-height: 300px;
+			padding: 1em;
+		}
+
+		footer{
+			text-align: center;
+			padding: 1em;
+			margin-top: 2em;
+			color: #777;
+			font-size: 0.9em;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1><i class="fas fa-network-wired"></i> Padrões de Cabeamento</h1>
+	</header>
+	
+	<main>
+		<div class="accordion">
+			<div class="accordion-item">
+				<div class="accordion-header">1. Normas e Padrões</div>
+				<div class="accordion-content">
+					O <b>padrão</b> pode ser visto como uma métrica, usada para uniformizar e padronizar processos, produtos e instalações. <br><br>
+					Já a <b>norma</b>, mesmo que usada pelas mesmas razões que o padrão, trata-se de um conjunto de regras.
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<div class="accordion-header">2. Normas Técnicas</div>
+				<div class="accordion-content">
+					As <b>normas técnicas</b> são de extrema importância pois ajudam a garantir segurança, qualidade, organização e que tudo funcione do jeito certo. <br><br>
+					Elas evitam erros, acidentes e problemas, especialmente em áreas técnicas como eletricidade e telecomunicações.
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<div class="accordion-header">3. NBR e Norma Geral</div>
+				<div class="accordion-content">
+					A principal norma brasileira é a <b>NBR 14565</b>, que trata do cabeamento de telecomunicações em edifícios comerciais.
+					<br><br>
+					E a principal norma geral (internacional) é a <b>ISO/IEC 11801</b>, que define o cabeamento genérico para diferentes tipos de instalações.
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<div class="accordion-header">4. Abrangência Geográfica</div>
+				<div class="accordion-content">
+					As normas e padrões possuem diferentes abrangências geográficas, tais como: <br>
+					<br>
+					<b>Municipal:</b> Código de obras de uma cidade;<br>
+					<b>Estadual:</b> Normas ambientais específicas de um estado; <br>
+					<b>Nacional:</b> NBR (Normas da ABNT) no Brasil;<br>
+					<b>Continental ou internacional: </b>Normas ISO (usadas em vários países).
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<div class="accordion-header">5. Diferenças</div>
+				<div class="accordion-content">
+					Normas são <b>documentos oficiais</b>, muitas vezes obrigatórios, com regras detalhadas. <br><br>
+					Padrões são <b>modelos ou referências</b> de como algo deve ser feito, podendo estar dentro de uma norma. <br>
+					<br>
+					A norma é mais completa e pode virar lei; o padrão é mais uma sugestão técnica.
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<div class="accordion-header">6. Hierarquia das Normas</div>
+				<div class="accordion-content">
+					As normas têm níveis de hierarquia.
+					<br>Algumas são apenas recomendações técnicas, outras são obrigatórias por lei. <br><br>
+					Um exemplo é a NR-10, que trata da segurança com eletricidade. <br>
+					Ela é obrigatória porque foi aprovada pelo Ministério do Trabalho,
+					e quem não segue pode ser multado ou penalizado judicialmente.
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script>
+
+		const headers = document.querySelectorAll(".accordion-header");
+
+		headers.forEach(header => {
+			header.addEventListener("click", () => {
+				const item = header.parentElement;
+				item.classList.toggle("open");
+			});
+		});
+	</script>
+
+	<!-- Rodapé -->
+	<footer>
+		<p> 2025 | Desenvolvido por Nicholly Gonzaga </p>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		main{
+			flex: 1;
+		}
+
+		body{
+			margin: 0;
+			font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(145deg, #f9f9f9, #e0f0ff);
+			color: #222;
+			transition: background 0.5s, color 0.5s;
+		}
+
+		header {
+			background-color: #005a9e;
+			color: white;
+			text-align: center;
+			padding: 1em;
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+		}
+
+		header h1{
+			margin: 0;
+			font-size: 2em;
+			letter-spacing: 1px;
+		}
+
+		button{
+			cursor: pointer;
+			padding: 15px 32px;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+		}
+
+		section{
+			width: 100vw;
+			height: 100vw;
+			overflow-y: auto;
+		}
+
+		.accordion {
+			max-width: 800px;
+			margin: 2em auto;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+			background-color: white;
+			overflow: hidden;
+		}
+
+		.accordion-item {
+			border-top: 1px solid #ddd;
+			transition: background 0.3s;
+		}
+
+		.accordion-header {
+			padding: 1em;
+			background: #f0f0f0;
+			cursor: pointer;
+			font-weight: bold;
+			position: relative;
+			transition: background 0.3s;
+		}
+		
+		.accordion-header::after {
+			content: "\f107";
+			font-family: 'Font Awesome 6 Free';
+			font-weight: 900;
+			position: absolute;
+			right: 20px;
+			transition: transform 0.3s ease;
+		}
+
+		.accordion-item.open .accordion-header::after {
+			transform: rotate(180deg);
+		}
+	
+		.accordion-content {
+			max-height: 0;
+			overflow: hidden;
+			background-color: #fafafa;
+			transition: max-height 0.4s ease, padding 0.3s ease;
+			padding: 0 1em;
+		}
+
+		.accordion-item.open .accordion-content {
+			max-height: 300px;
+			padding: 1em;
+		}
+
+		footer{
+			text-align: center;
+			padding: 1em;
+			margin-top: 2em;
+			color: #777;
+			font-size: 0.9em;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1> <i class="fa-solid fa-ethernet"></i> Rede Cabeada </h1>
+	</header>
+	
+	<main>
+		<div class="accordion">
+			<div class="accordion-item">
+				<div class="accordion-header">1. Equipamentos Passivos</div>
+				<div class="accordion-content">
+					Os equipamentos passivos fazem a conexão entre equipamentos e permitem o transporte dos dados. 
+					<br><br>Eles recebem o título de passivos porque não interferem diretamente no sinal ou nas informações que passam e servem apenas como conectores, e, em alguns casos, sequem necessitam de energia elétrica para funcionar.
+					<br><br> Exemplo: Fontes de alimentação.
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<div class="accordion-header">2. Equipamentos Ativos</div>
+				<div class="accordion-content">
+					Já os equipamentos ativos são usados na estruturação das redes de computadores e é através deles que as máquinas conseguem conexão entre si e com a internet.<br><br>Eles convertem sinais ópticos/eletrônicos e geram e recebem dados, lidando com todo o tráfego de dados que percorrem pelos equipamentos passivos. 
+					<br><br> Exemplo: Roteador.
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<div style="text-align: center;">
+		<img src="https://png.pngtree.com/png-clipart/20240312/original/pngtree-office-work-wifi-router-illustration-3d-png-image_14570289.png" alt="" width="300px">
+		<img src="https://images.tcdn.com.br/img/img_prod/735504/fonte_de_notebook_lg_19v_3_42a_4135_1_93c788fcb48dc6e5e246e00aedc5a278.png" alt="" width="300px">
+	</div>
+
+	<script>
+
+		const headers = document.querySelectorAll(".accordion-header");
+
+		headers.forEach(header => {
+			header.addEventListener("click", () => {
+				const item = header.parentElement;
+				item.classList.toggle("open");
+			});
+		});
+	</script>
+
+	<!-- Rodapé -->
+	<footer>
+		<p> 2025 | Desenvolvido por Nicholly Gonzaga </p>
+	</footer>
+
+</body>
+</html>
